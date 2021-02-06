@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -9,15 +10,27 @@ public class NewMenu01 {
 		NewMenu01 n = new NewMenu01();
 		String[] res = n.solution(new String[] { "ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH" },
 				new int[] { 2, 3, 4 });
-		/*
-		 * for(String s : res) { System.out.println(s); }
-		 */
+		res = n.solution(new String[] {"XYZ", "XWY", "WXA"}, new int[] {2,3,4});
+		System.out.println(); 
+		for (String s : res) {
+			System.out.println(s);
+		}
+
 	}
 
 	Map<String, Integer> courseMap = new HashMap<>();
 	List<String> answerList = new ArrayList<>();
 
 	public String[] solution(String[] orders, int[] course) {
+
+		// orders를 모두 오름차순으로 정렬
+		for (int i = 0; i < orders.length; i++) {
+			char[] arr = orders[i].toCharArray();
+			Arrays.sort(arr);
+			orders[i] = String.valueOf(arr);
+		}
+
+		// course수의 모든 조합 구하기
 		for (int i = 0; i < course.length; i++) {
 			for (int j = 0; j < orders.length; j++) {
 				String order = orders[j];
@@ -28,6 +41,7 @@ public class NewMenu01 {
 				}
 			}
 
+			// 가장 많이 주문한 단품메뉴 조합 구하기, answer에 넣기
 			if (!courseMap.isEmpty()) {
 				findPopularCourse();
 				courseMap.clear();
